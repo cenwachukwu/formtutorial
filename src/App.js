@@ -6,8 +6,10 @@ function App() {
   const [name, setName] = useState('');
   return (
     <div className="App">
-      <label htmlFor="name">Name</label>
-      <input type="text" name="text" id="name" onChange={(e) => setName(e.target.value)} />
+      <form>
+        <label htmlFor="name">Name</label>
+        <input type="text" name="text" id="name" onChange={(e) => setName(e.target.value)} />
+      </form>
     </div>
   );
 }
