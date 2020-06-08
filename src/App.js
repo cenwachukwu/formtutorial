@@ -8,14 +8,19 @@ function App() {
   const [email, setEmail] = useState('');
 
   // we need error messages to display to the user
+  // we would set this to null and that would make it false and not appear until it's not null
+  const [nameError, setNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
 
   //i know we dont want to run our form validation on first render
   // we want to run it when there are changes to our name and  email state
   // useRef is like a “box” that can hold a mutable value in its .current property.
   // we want to use useRef to set a mutable state or like a toggle inside the useEffect hook
   // so that useEffect doesnt run on the first render
+  const isFirstRender = useRef(true);
 
   // we also need a disable state to prevent the user from clicking the submit button if there is an error
+  const [disabled, setDisabled] = useState(true);
   // our form validation will check if name or email is empty.
   // if it is, it will change the state of the error message to what we would want to display
   // if it's not, it will change the state of the disable to false and our user can submit their forms
