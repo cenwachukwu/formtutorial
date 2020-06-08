@@ -19,12 +19,14 @@ function App() {
   // if it's not, it will change the state of the disable to false and our user can submit their forms
 
   // validEmailRegex
-  const validEmailRegex = RegExp(
-    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-  );
+  // we need to validate the emails
+  const checkEmailPattern = (mail) => {
+    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(mail);
+  };
 
   const handleformValidation = () => {
-    if (name === '' && email === '') {
+    if (name === '' || emailError) {
       return true;
     } else {
       return false;
@@ -37,10 +39,12 @@ function App() {
 
     switch (name) {
       case 'name':
+        setName(value);
         setNameError(value.length ? null : 'Name can not be blank!');
         break;
       case 'email':
-        setEmailError(validEmailRegex.test(value) ? null : 'Email is not valid!');
+        setEmailError(checkEmailPattern(value) ? null : 'Email is not valid!');
+        setEmail(value);
         break;
 
       default:
@@ -54,7 +58,14 @@ function App() {
   // we want to use useRef to set a mutable state or like a toggle inside the useEffect hook
   // so that useEffect doesnt run on the first render
   const isFirstRender = useRef(true);
-  useEffect(() => {}, [name, email]);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    setDisabled(handleformValidation());
+  }, [name, email]);
 
   return (
     <div className="App">
@@ -63,14 +74,14 @@ function App() {
           <li>
             <label htmlFor="name">Name</label>
             <input type="name" name="name" id="name" onChange={handleFormChange} />
-            {nameError ? <span className="error">{nameError}</span> : null}
+            {nameError && <p>{nameError}</p>}
           </li>
           <li>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" onChange={handleFormChange} />
-            {emailError ? <span className="error">{emailError}</span> : null}
+            {emailError && <p>{emailError}</p>}
           </li>
-          {nameError && <p>{nameError}</p>}
+
           <li>
             <button type="submit" disabled={disabled}>
               Save
