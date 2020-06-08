@@ -26,9 +26,10 @@ function App() {
   };
 
   const handleformValidation = () => {
-    if (name === '' || emailError) {
+    if (nameError !== 'valid' || emailError !== 'valid') {
       return true;
-    } else {
+    } else if (nameError === 'valid' && emailError === 'valid') {
+      console.log('it worked');
       return false;
     }
   };
@@ -40,10 +41,10 @@ function App() {
     switch (name) {
       case 'name':
         setName(value);
-        setNameError(value.length ? null : 'Name can not be blank!');
+        setNameError(value.length ? 'valid' : 'Name can not be blank!');
         break;
       case 'email':
-        setEmailError(checkEmailPattern(value) ? null : 'Email is not valid!');
+        setEmailError(checkEmailPattern(value) ? 'valid' : 'Email is not valid!');
         setEmail(value);
         break;
 
@@ -67,6 +68,9 @@ function App() {
     setDisabled(handleformValidation());
   }, [name, email]);
 
+  // how about instead of disabling the button, how about we show an error message if the error messages are not valid
+  // so if the user clicks the submit button with an invalid form, they will have and alert with all the error messages in red
+
   return (
     <div className="App">
       <form>
@@ -74,16 +78,24 @@ function App() {
           <li>
             <label htmlFor="name">Name</label>
             <input type="name" name="name" id="name" onChange={handleFormChange} />
-            {nameError && <p>{nameError}</p>}
+            {/* {nameError && <p>{nameError}</p>} */}
+            {nameError === 'valid' ? null : <p>{nameError}</p>}
           </li>
           <li>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" onChange={handleFormChange} />
-            {emailError && <p>{emailError}</p>}
+            {/* {emailError && <p>{emailError}</p>} */}
+            {emailError === 'valid' ? null : <p>{emailError}</p>}
           </li>
 
           <li>
-            <button type="submit" disabled={disabled}>
+            <button
+              type="submit"
+              disabled={disabled}
+              onClick={(e) => {
+                alert('wtf');
+              }}
+            >
               Save
             </button>
           </li>
