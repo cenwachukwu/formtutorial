@@ -1,3 +1,44 @@
+// the read me
+// the giphy club : create a giphy album of your faves
+// users fill out a form series
+// form series collect infomation that will be used to create a profile for the users
+// the infomation will be use to create giphy pages of their faves
+// this application will feature:
+// 1
+// multiple form series with continue and back button
+// the back button takes them to the previous page with their infomation still intact, this will not be visible on the first page
+// the continue buttton takes them to next page only if there is no error, so this button will be invalid until there are no errors
+// 2
+// user validation
+// this is to ensure the safety of the users infomation
+// only the creator can edit/delete this infomation
+// 3
+// get/post
+// the form posts infomation to our backend while our ui gets that infomation and uses it to dynamically get requests/infomation from giphy
+// i dont know if i want to save giphy info to the backend yet
+// 4
+// the home page will be a single page
+// 5
+// a search field
+// eg. search for your faves
+// i dont know how this will be done
+// 6
+// modal and carrousel
+// so on the fav page, the giphys will be arranged in grid form and when a square is clicked, a modal pops up
+// the modal will be a carrousel of giphys with thumbnails underneath with the active thumbnail styled with something to show that it's active
+// carrousel will have a prev and next button and visible close button
+// the  thumbnail will have a slider ability where people can slide through and click and activate a thumbnail as the focus
+// 7
+// displaying other peoples album
+// you can see peoples albums by clicking an enter the club button
+// this also displays as a modal and carrousel
+// 8
+// a like profile button
+// this adds the profile to the "my fave clubers" section of your profile,
+// so it posts the profile data of the person to your profile data under the likes array which will be displayed in the likes section of the interface
+// the user can manipulate that array but not the individual profiles
+// so you can remove the person from your likes in the edit profile section
+
 import React, { useEffect, useState, useRef } from 'react';
 import './App.scss';
 
